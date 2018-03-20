@@ -2,14 +2,16 @@ package ex.aaronfae.Ch7;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@RestController
 @SpringBootApplication
 public class Application {
 
@@ -30,5 +32,10 @@ public class Application {
         model.addAttribute("singlePerson", single);
         model.addAttribute("people", people);
         return "index";
+    }
+
+    @RequestMapping(value = "/search", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Person search(String personName) {
+        return new Person(personName, 32, "Dongguan");
     }
 }
